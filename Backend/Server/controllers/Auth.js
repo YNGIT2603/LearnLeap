@@ -3,6 +3,7 @@ const OTP = require("../models/OTP");
 const otpGenerator = require('otp-generator');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const mailSender = require("../utils/mailSender");
 require('dotenv').config();
 
 //send OTP
@@ -219,8 +220,32 @@ exports.login = async (req,res) =>{
 exports.changePassword = async (req,res) =>{
     //get data from body
     //get oldpass, newpass, confirmpass
+    const {oldPassword,newPassword,confirmPassword,email} = req.body;
     //validation
+    const checkOld = await User.findOne({email:email});
+    //ERROR HO SKTA HAI FINDONE ME YAHA***********************************************************************
+    if(checkOld !== oldPassword){
+        return res.status(500).json({
+            success:false,
+            message:"Old passsword did not match"
+        });;
+    }
+
+    if(newPassword !== confirmPassword){
+        return res.status(500).json({
+            success:false,
+            message:"passsword did not match"
+        });
+    }
     //update pass in db
+    const updatedPass = await User.findByIdAndUpdate({email:email},
+        {password:newPassword},
+        {new:true});
     //send mail - pass updated
+    await mailSender(email, "Password updated successfully", "Password updated, Thank you");
     //return res
+    return res.status(200).json({
+        success:true,
+        message:"Password Updated successfully"
+    })
 }
