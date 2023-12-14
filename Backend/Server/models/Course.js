@@ -35,11 +35,13 @@ const courseSchema = new mongoose.Schema({
     },
     category:{
         type:mongoose.Schema.Types.ObjectId,
-        ref:"Tag"
+        required:true,
+        ref:"Category"
     },
     //category me ref tag change krna hai
-    tags:{
-        type:String
+    tag:{
+        type:[String], 
+        required:true
     },
     studentEnrolled  : [
         {

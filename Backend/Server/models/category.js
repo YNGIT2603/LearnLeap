@@ -5,14 +5,16 @@ const categorySchema = new mongoose.Schema({
         type:String,
         required:true
     },
-    course : {
-        type:mongoose.Schema.Types.ObjectId,
-        ref:"Course",
-    },
+    courses : [
+        {
+            type:mongoose.Schema.Types.ObjectId,
+            ref:"Course",
+        }
+    ],
     description : {
-        type:Number,
+        type:String,
     },
 });
 
 
-module.exports = mongoose.model("Tag",categorySchema);   
+module.exports = mongoose.model("Category",categorySchema);   
