@@ -6,11 +6,11 @@ const {uploadImageToCloudinary} = require('../utils/imageUploader');
 exports.createSubSection = async (req,res) =>{
     try{
         //fetch data
-        const {sectionID, title,timeDuration, description} = req.body;
+        const {sectionId, title,timeDuration, description} = req.body;
         //fetch video
         const video = req.files.videoFile;
         //data validation
-        if(!sectionID || !title || !timeDuration || !description){
+        if(!sectionId || !title || !timeDuration || !description){
             return res.status(400).json({
                 success:false,
                 message:"Missing properties"
@@ -27,7 +27,7 @@ exports.createSubSection = async (req,res) =>{
         });
         //update course
         const updatedSection = await Section.findByIdAndUpdate( 
-            {_id:sectionID},
+            {_id:sectionId},
             {
                 $push:{
                     subSection:subSectionDetails._id,

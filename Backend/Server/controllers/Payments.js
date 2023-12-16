@@ -159,3 +159,29 @@ exports.verifySignature = async(req,res) =>{
     }
 
 }
+
+exports.sendPaymentSuccessEmail = async (req, res) => {
+    const {amount,paymentId,orderId} = req.body;
+    const userId = req.user.id;
+    if(!amount || !paymentId) {
+        return res.status(400).json({
+            success:false,
+            message:'Please provide valid payment details',
+        });
+    }
+    try{
+        const enrolledStudent =  await User.findById(userId);
+        await mailSender(
+            enrolledStudent.email,
+            `Study Notion Payment successful`,
+            paymentSuccess(amount/100, paymentId, orderId, enrolledStudent.firstName, enrolledStudent.lastName),
+        );
+}
+    catch(error) {
+        console.error(error);
+        return res.status(500).json({
+            success:false,
+            message:error.message,
+        });
+    }
+}

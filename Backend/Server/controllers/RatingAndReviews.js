@@ -1,5 +1,4 @@
-const Course = require('../models/Course');
-const User = require('../models/User');
+
 const Course = require('../models/RatingAndReview');
 const RatingAndReview = require('../models/RatingAndReview');
 const { default: mongoose } = require('mongoose');

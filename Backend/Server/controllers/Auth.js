@@ -1,4 +1,5 @@
 const User = require("../models/User");
+const Profile = require('../models/Profile');
 const OTP = require("../models/OTP");
 const otpGenerator = require('otp-generator');
 const bcrypt = require('bcrypt');
@@ -166,14 +167,16 @@ exports.login = async (req,res) =>{
                 message:"All fields are required"
             });
         }
+        console.log("email and password recived at login");
         //user check exist or not
-        const user = await User.findOne({email}).populate("additional details : ");
+        const user = await User.findOne({email}).populate("additionalDetails");
         if(!user){
             return res.status(401).json({
                 success:false,
                 message:"user is not registered"
             }); 
         }
+        console.log("user exist with email", email);
         //generate jwt after password matching
         if(await bcrypt.compare(password,user.password)){
             const payload = {
@@ -211,7 +214,8 @@ exports.login = async (req,res) =>{
     }catch(err){
         return res.status(500).json({
             success:false,
-            message:"Login failed"
+            message:"Login failed",
+            error:err.message
         });
     }
 }

@@ -11,10 +11,10 @@ const mailSender = async (email,title,body) => {
         })
 
         let info = await transporter.sendMail({
-            from: 'LearnLeap || Yashasvi Nayak',
+            from: 'StudyNotion || Yashasvi Nayak',
             to:`${email}`,
             subject:`${title}`,
-            body:`${body}`
+            html:`${body}`
         })
 
         console.log(info);
@@ -23,3 +23,6 @@ const mailSender = async (email,title,body) => {
         console.log(err.message)
     }
 }
+
+
+module.exports = mailSender;

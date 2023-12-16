@@ -4,9 +4,9 @@ const Course = require('../models/Course');
 exports.createSection = async (req,res) =>{
     try{
         //fetch data
-        const {sectionName, courseID} = req.body;
+        const {sectionName, courseId} = req.body;
         //data validation
-        if(!sectionName || !courseID){
+        if(!sectionName || !courseId){
             return res.status(400).json({
                 success:false,
                 message:"Missing properties"
@@ -16,7 +16,7 @@ exports.createSection = async (req,res) =>{
         const newSection = await Section.create({sectionName});
         //update course
         const updatedCourseDetails = await Course.findByIdAndUpdate( 
-            courseID,
+            courseId,
             {
                 $push:{
                     courseContent:newSection._id,
@@ -44,9 +44,9 @@ exports.createSection = async (req,res) =>{
 exports.updateSection = async (req,res) =>{
     try{
         //data input
-        const {sectionName, sectionID} = req.body;
+        const {sectionName, sectionId} = req.body;
         //data validation
-        if(!sectionName || !sectionID){
+        if(!sectionName || !sectionId){
             return res.status(400).json({
                 success:false,
                 message:"Missing properties"
@@ -55,7 +55,7 @@ exports.updateSection = async (req,res) =>{
 
         //update data
         const updatedCourseDetails = await Section.findByIdAndUpdate( 
-            sectionID,
+            sectionId,
             {sectionName},
             {new:true},
         ); 
@@ -64,6 +64,7 @@ exports.updateSection = async (req,res) =>{
         return res.status(200).json({
             success:true,
             message:"Section updated succesfully",
+            updatedCourseDetails
         });
 
     }catch(err){
@@ -79,10 +80,10 @@ exports.updateSection = async (req,res) =>{
 exports.deleteSection = async (req,res) =>{
     try{
         //getID - assuming that we are sending ID in params
-        const {sectionID} = req.params;
+        const {sectionId} = req.params;
 
         //findby id and delete
-        await Section.findByIdAndDelete(sectionID);
+        await Section.findByIdAndDelete(sectionId);
 
         //return response
         return res.status(200).json({
