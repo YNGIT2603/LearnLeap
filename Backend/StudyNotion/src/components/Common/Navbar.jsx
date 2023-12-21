@@ -79,13 +79,15 @@ const Navbar = () => {
                                         <div className='absolute left-[50%] top-0 translate-x-[80%]
                                         translate-y-[-40%] h-5 w-5 rotate-45 rounded bg-richblue-5'>
                                         </div>
-                                        {/* {
-                                            subLinks.length ? (
-                                                {
-                                                    
-                                                }
-                                            ) : (<div></div>)
-                                        } */}
+                                        {
+                                        subLinks.length ? (
+                                                subLinks.map( (subLink, index) => (
+                                                    <Link to={`${subLink.link}`} key={index}>
+                                                        <p>{subLink.title}</p>
+                                                    </Link>
+                                                ) )
+                                        ) : (<div></div>)
+                                        }
                                         </div>
                                     </div>
                                     ) : (
