@@ -127,45 +127,33 @@ exports.getEnrolledCourses=async (req,res) => {
 
 //updateDisplayPicture
 exports.updateDisplayPicture = async (req, res) => {
-	try {
-
-		const id = req.user.id;
-	const user = await User.findById(id);
-	if (!user) {
-		return res.status(404).json({
-            success: false,
-            message: "User not found",
-        });
-	}
-	const image = req.files.displayPicture;
-	if (!image) {
-		return res.status(404).json({
-            success: false,
-            message: "Image not found",
-        });
-    }
-	const uploadDetails = await uploadImageToCloudinary(
-		image,
-		process.env.FOLDER_NAME
-	);
-	console.log(uploadDetails);
-
-	const updatedImage = await User.findByIdAndUpdate({_id:id},{image:uploadDetails.secure_url},{ new: true });
-
-    res.status(200).json({
+    try {
+      const displayPicture = req.files.displayPicture
+      const userId = req.user.id
+      const image = await uploadImageToCloudinary(
+        displayPicture,
+        process.env.FOLDER_NAME,
+        1000,
+        1000
+      )
+      console.log(image)
+      const updatedProfile = await User.findByIdAndUpdate(
+        { _id: userId },
+        { image: image.secure_url },
+        { new: true }
+      )
+      res.send({
         success: true,
-        message: "Image updated successfully",
-        data: updatedImage,
-    });
-		
-	} catch (error) {
-		return res.status(500).json({
-            success: false,
-            message: error.message,
-        });
-		
-	}
-}
+        message: `Image Updated successfully`,
+        data: updatedProfile,
+      })
+    } catch (error) {
+      return res.status(500).json({
+        success: false,
+        message: error.message,
+      })
+    }
+};
 
 //instructor dashboard
 exports.instructorDashboard = async (req, res) => {

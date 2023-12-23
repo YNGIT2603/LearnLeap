@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import logo from '../../assets/Logo/Logo-Full-Light.png'
 import {NavbarLinks} from '../../data/navbar-links'
 import { Link, matchPath } from 'react-router-dom'
@@ -10,16 +10,16 @@ import { categories } from '../../services/apis'
 import { apiConnector } from '../../services/apiConnector'
 import { MdArrowDropDown } from "react-icons/md";
 
-const subLinks = [
-    {
-        title: "python",
-        link:"/catalog/python"
-    },
-    {
-        title: "web dev",
-        link:"/catalog/web-development"
-    },
-];
+// const subLinks = [
+//     {
+//         title: "python",
+//         link:"/catalog/python"
+//     },
+//     {
+//         title: "web dev",
+//         link:"/catalog/web-development"
+//     },
+// ];
 
 const Navbar = () => {
 
@@ -30,21 +30,21 @@ const Navbar = () => {
     const {totalItems} = useSelector( (state) =>  state.cart);
 
 
-    //const [subLinks, setSubLinks] = useState([]);
+    const [subLinks, setSubLinks] = useState([]);
 
-    // const fetchSublinks = async() =>{
-    //     try{
-    //         const result = await apiConnector("GET",categories.CATEGORIES_API);
-    //         console.log("Printing sublinks result: ", result);
-    //         setSubLinks(result.data.data);
-    //     }catch(err){
-    //         console.log("Could not fetch category list")
-    //     }
-    // }
+    const fetchSublinks = async() =>{
+        try{
+            const result = await apiConnector("GET",categories.CATEGORIES_API);
+            console.log("Printing sublinks result: ", result);
+            setSubLinks(result.data.data);
+        }catch(err){
+            console.log("Could not fetch category list")
+        }
+    }
     
-    // useEffect( ()=> {
-    //     fetchSublinks();
-    // },[])
+    useEffect( ()=> {
+        fetchSublinks();
+    },[])
 
     let location = useLocation();
     const matchRoute = (route) => {
