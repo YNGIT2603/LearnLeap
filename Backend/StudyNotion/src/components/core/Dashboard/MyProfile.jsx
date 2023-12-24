@@ -42,7 +42,7 @@ export default function MyProfile() {
           <p className="text-lg font-semibold text-richblack-5">About</p>
           <IconBtn
             text="Edit"
-            onclick={ () => {
+            onclick={() => {
               navigate("/dashboard/settings")
             }}
           >

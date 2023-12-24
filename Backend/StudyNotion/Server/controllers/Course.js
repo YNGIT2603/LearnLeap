@@ -7,6 +7,7 @@ const {uploadImageToCloudinary} = require('../utils/imageUploader');
 exports.createCourse = async (req,res) =>{
     try{
         //fetch data
+		console.log("Received req with body ....................",req.body)
         const {courseName, courseDescription, whatYouWillLearn, price,tag,category} = req.body;
         const thumbnail = req.files.thumbnailImage;
 

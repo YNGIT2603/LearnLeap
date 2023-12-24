@@ -28,18 +28,16 @@ export default function Sidebar() {
 
   return (
     <>
-    {/* 3.5 rem navbar height */}
       <div className="flex h-[calc(100vh-3.5rem)] min-w-[220px] flex-col border-r-[1px] border-r-richblack-700 bg-richblack-800 py-10">
         <div className="flex flex-col">
           {sidebarLinks.map((link) => {
             if (link.type && user?.accountType !== link.type) return null
             return (
-              <SidebarLink key={link.id} link={link} iconName={link.icon} />  
+              <SidebarLink key={link.id} link={link} iconName={link.icon} />
             )
           })}
         </div>
         <div className="mx-auto mt-6 mb-6 h-[1px] w-10/12 bg-richblack-700" />
-        {/* HANDLE SETTINGS AND LOGOUT */}
         <div className="flex flex-col">
           <SidebarLink
             link={{ name: "Settings", path: "/dashboard/settings" }}

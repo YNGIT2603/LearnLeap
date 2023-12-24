@@ -10,7 +10,6 @@ export default function SidebarLink({ link, iconName }) {
   const dispatch = useDispatch()
 
   const matchRoute = (route) => {
-    console.log(route, " ... " , location.pathname);
     return matchPath({ path: route }, location.pathname)
   }
 
