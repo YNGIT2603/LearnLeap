@@ -19,12 +19,13 @@ const {
 
 
 // Categories Controllers Import
+// Categories Controllers Import
 const {
-  showAllCategory,
+  showAllCategories,
   createCategory,
   categoryPageDetails,
   addCourseToCategory,
-} = require('../controllers/Category')
+} = require("../controllers/Category")
 
 // Sections Controllers Import
 const {
@@ -96,7 +97,7 @@ router.post("/updateCourseProgress", auth, isStudent, markLectureAsComplete);
 // Category can Only be Created by Admin
 // TODO: Put IsAdmin Middleware here
 router.post("/createCategory", auth, isAdmin, createCategory)
-router.get("/showAllCategories", showAllCategory)
+router.get("/showAllCategories", showAllCategories)
 router.post("/getCategoryPageDetails", categoryPageDetails)
 router.post("/addCourseToCategory", auth, isInstructor, addCourseToCategory);
 

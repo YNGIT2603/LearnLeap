@@ -140,9 +140,11 @@ export default function CourseBuilderForm() {
           )}
         </div>
       </form>
-      {course.courseContent.length > 0 && (
-        <NestedView handleChangeEditSectionName={handleChangeEditSectionName} />
-      )}
+      {
+          course.courseContent.length > 0 && (
+          <NestedView handleChangeEditSectionName={handleChangeEditSectionName} />
+          )
+      }
       {/* Next Prev Button */}
       <div className="flex justify-end gap-x-3">
         <button

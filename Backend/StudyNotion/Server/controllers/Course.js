@@ -1,5 +1,7 @@
 const Category = require('../models/Category');
 const Course = require('../models/Course');
+const Section = require("../models/Section");
+const SubSection = require("../models/SubSection");
 const User = require('../models/User');
 const {uploadImageToCloudinary} = require('../utils/imageUploader');
 
@@ -349,6 +351,7 @@ exports.getFullCourseDetails = async (req, res) => {
 exports.deleteCourse = async (req, res) => {
 	try {
 	  const { courseId } = req.body
+  
 	  // Find the course
 	  const course = await Course.findById(courseId)
 	  if (!course) {
@@ -371,7 +374,7 @@ exports.deleteCourse = async (req, res) => {
 		if (section) {
 		  const subSections = section.subSection
 		  for (const subSectionId of subSections) {
-			await SubSection.findByIdAndDelete(subSectionId);
+			await SubSection.findByIdAndDelete(subSectionId)
 		  }
 		}
   
@@ -381,16 +384,6 @@ exports.deleteCourse = async (req, res) => {
   
 	  // Delete the course
 	  await Course.findByIdAndDelete(courseId)
-
-	  //Delete course id from Category
-	  await Category.findByIdAndUpdate(course.category._id, {
-		$pull: { courses: courseId },
-	     })
-	
-	//Delete course id from Instructor
-	await User.findByIdAndUpdate(course.instructor._id, {
-		$pull: { courses: courseId },
-		 })
   
 	  return res.status(200).json({
 		success: true,

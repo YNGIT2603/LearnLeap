@@ -43,7 +43,7 @@ const courseSchema = new mongoose.Schema({
         type:[String], 
         required:true
     },
-    studentEnrolled  : [
+    studentsEnrolled  : [
         {
             type:mongoose.Schema.Types.ObjectId,
             ref:"User",
