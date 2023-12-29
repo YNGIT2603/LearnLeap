@@ -94,36 +94,32 @@ exports.getAllUserDetails = async(req,res) =>{
     }
 }
 
-exports.getEnrolledCourses=async (req,res) => {
-	try {
-        const id = req.user.id;
-        const user = await User.findById(id);
-        if (!user) {
-            return res.status(404).json({
-                success: false,
-                message: "User not found",
-            });
-        }
-        const enrolledCourses = await User.findById(id).populate({
-			path : "courses",
-				populate : {
-					path: "courseContent",
-			}
-		}
-		).populate("courseProgress").exec();
-        // console.log(enrolledCourses);
-        res.status(200).json({
-            success: true,
-            message: "User Data fetched successfully",
-            data: enrolledCourses,
-        });
+exports.getEnrolledCourses = async (req, res) => {
+    try {
+      const userId = req.user.id
+      const userDetails = await User.findOne({
+        _id: userId,
+      })
+        .populate("courses")
+        .exec()
+        // console.log("user Details: ", userDetails);
+      if (!userDetails) {
+        return res.status(400).json({
+          success: false,
+          message: `Could not find user with id: ${userDetails}`,
+        })
+      }
+      return res.status(200).json({
+        success: true,
+        data: userDetails.courses,
+      })
     } catch (error) {
-        return res.status(500).json({
-            success: false,
-            message: error.message,
-        });
+      return res.status(500).json({
+        success: false,
+        message: error.message,
+      })
     }
-}
+};
 
 //updateDisplayPicture
 exports.updateDisplayPicture = async (req, res) => {

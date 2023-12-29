@@ -21,7 +21,9 @@ import { ACCOUNT_TYPE } from "./utils/constants";
 import EditCourse from "./components/core/Dashboard/EditCourse";
 import Error from "./pages/Error";
 import { useDispatch, useSelector } from "react-redux";
+import Catalog from "./pages/Catalog";
 import AddCourse from "./components/core/Dashboard/AddCourse";
+import CourseDetails from "./pages/CourseDetails";
 
 function App() {
 
@@ -33,6 +35,9 @@ function App() {
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="catalog/:catalogName" element={<Catalog/>} />
+        <Route path="courses/:courseId" element={<CourseDetails/>} />
+
         <Route
           path="signup"
           element={
