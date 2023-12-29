@@ -8,6 +8,7 @@ import CodeBlocks from "../components/core/HomePage/CodeBlocks";
 import TimelineSection from "../components/core/HomePage/TimelineSection";
 import LearningLanguageSection from "../components/core/HomePage/LearningLanguageSection";
 import InstructorSection from "../components/core/HomePage/InstructorSection";
+import ReviewSlider from "../components/common/ReviewSlider"
 import Footer from "../components/common/Footer";
 import ExploreMore from "../components/core/HomePage/ExploreMore";
 
@@ -167,14 +168,16 @@ const Home = () => {
         </div>
       </div>
       {/* SECTION 3 */}
-      <div
-        className="w-11/12 mx-auto flex max-w-maxContent flex-col items-center justify-between gap-8
-        text-white bg-richblack-900 mb-20"
-      >
+      <div className="w-11/12 relative mx-auto my-10 flex max-w-maxContent flex-col h-fit
+      items-center justify-between gap-8 bg-richblack-900 text-white">
+        {/* Become a instructor section */}
         <InstructorSection />
-        <h2 className="text-center text-4xl font-semibold mt-10">
-          Review from other learners
-        </h2>
+
+        {/* Reviws from Other Learner */}
+        <h1 className="text-center text-4xl font-semibold mt-8">
+          Reviews from other learners
+        </h1>
+        <ReviewSlider />
       </div>
       {/* Footer */}
       <Footer />

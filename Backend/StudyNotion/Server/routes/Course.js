@@ -9,12 +9,10 @@ const {
   createCourse,
   getAllCourses,
   getCourseDetails,
-  getInstructorCourses,
-  editCourse,
   getFullCourseDetails,
+  editCourse,
+  getInstructorCourses,
   deleteCourse,
-  searchCourse,
-  markLectureAsComplete,
 } = require("../controllers/Course")
 
 
@@ -47,6 +45,11 @@ const {
   getAverageRating,
   getAllRating,
 } = require("../controllers/RatingAndReviews")
+
+const {
+  updateCourseProgress
+} = require("../controllers/courseProgress");
+
 
 //demo
 const { isDemo } = require("../middlewares/demo");
@@ -84,10 +87,12 @@ router.get("/getInstructorCourses", auth, isInstructor, getInstructorCourses)
 router.post("/getFullCourseDetails", auth, getFullCourseDetails)
 // Delete a Course
 router.delete("/deleteCourse",auth,isDemo, deleteCourse)
+
+router.post("/updateCourseProgress", auth, isStudent, updateCourseProgress);
 // Search Courses
-router.post("/searchCourse", searchCourse);
+// router.post("/searchCourse", searchCourse);
 //mark lecture as complete
-router.post("/updateCourseProgress", auth, isStudent, markLectureAsComplete);
+// router.post("/updateCourseProgress", auth, isStudent, markLectureAsComplete);
 
 
 
@@ -104,7 +109,7 @@ router.post("/addCourseToCategory", auth, isInstructor, addCourseToCategory);
 // ********************************************************************************************************
 //                                      Rating and Review
 // ********************************************************************************************************
-router.post("/createRating", auth, isStudent,isDemo, createRating)
+router.post("/createRating", auth, isStudent, createRating)
 router.get("/getAverageRating", getAverageRating)
 router.get("/getReviews", getAllRating)
 

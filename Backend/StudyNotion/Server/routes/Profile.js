@@ -9,6 +9,8 @@ const {
   getEnrolledCourses,
   instructorDashboard,
 } = require("../controllers/Profile")
+
+
 const { isDemo } = require("../middlewares/demo");
 
 // ********************************************************************************************************
@@ -23,5 +25,6 @@ router.get("/getEnrolledCourses", auth, getEnrolledCourses)
 router.put("/updateDisplayPicture", auth,isDemo, updateDisplayPicture)
 //get instructor dashboard details
 router.get("/getInstructorDashboardDetails",auth,isInstructor, instructorDashboard)
+router.get("/instructorDashboard", auth, isInstructor, instructorDashboard)
 
 module.exports = router;
